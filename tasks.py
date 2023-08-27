@@ -7,6 +7,8 @@ from robocorp import log, workitems
 from RPA.Excel.Files import Files
 import requests
 from RPA.FileSystem import FileSystem
+from uuid import uuid4
+
 
 browser_lib = Selenium()
 
@@ -120,13 +122,11 @@ def minimal_task():
         
         browser_lib.click_button_when_visible("//button[@data-testid='search-show-more-button']")
 
-    file_system = FileSystem()
-    file_system.create_directory("output/article_images")
     for news in all_news:
         if news['image_url']:
             response = requests.get(news['image_url'])
             if response.status_code == 200:
-                with open(f"output/article_images/{news['title']}.jpg", "wb") as f:
+                with open(f"output/{uuid4()}.jpg", "wb") as f:
                     f.write(response.content)
 
     excel_lib = Files()
