@@ -49,4 +49,3 @@ testrun/*
 *.pkl
 devdata/
 geckodriver.log
-news_images/
