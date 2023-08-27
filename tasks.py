@@ -11,8 +11,8 @@ from RPA.FileSystem import FileSystem
 browser_lib = Selenium()
 
 def open_website(url):
-    browser_lib.open_available_browser(url=url)
-    time.sleep(2)
+    browser_lib.open_available_browser(url)
+    browser_lib.wait_until_page_contains_element("//div[@id='complianceOverlay']")
     browser_lib.click_button('Continue')
 
 def search_for(search_phrase: str):
@@ -98,8 +98,8 @@ def minimal_task():
     SEARCH_PHRASE = item.get("searchPhrase", "turtle")
     CATEGORIES = item.get("categories", [])
     NUMBER_OF_MONTHS = item.get("numberOfMonths", 0)
-    all_news = []
     open_website(url="https://www.nytimes.com/")
+    all_news = []
     search_for(SEARCH_PHRASE)
     sort_by_newest()
     select_categories(CATEGORIES)
@@ -124,12 +124,12 @@ def minimal_task():
         if news['image_url']:
             response = requests.get(news['image_url'])
             if response.status_code == 200:
-                ## create directory
                 file_system = FileSystem()
                 file_system.create_directory("news_images")
-                file_system.create_file(f"news_images/{news['title']}.jpg", response.content)
+                with open(f"news_images/{news['title']}.jpg", "wb") as f:
+                    f.write(response.content)
 
     excel_lib = Files()
-    excel_lib.create_workbook("news.xlsx")
-    excel_lib.create_worksheet(name="news", content=all_news, header=True)
+    excel_lib.create_workbook("articles.xlsx")
+    excel_lib.create_worksheet(name="articles", content=all_news, header=True)
     excel_lib.save_workbook()
