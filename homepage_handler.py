@@ -1,7 +1,7 @@
 from RPA.Browser.Selenium import Selenium
 
 
-class NYTHomePageHandler:
+class HomePageHandler:
     _HOME_PAGE_URL = 'https://www.nytimes.com/'
     _TERMS_LOCATOR = "//div[@id='complianceOverlay']"
     _CONTINUE_BUTTON_LOCATOR = 'Continue'
