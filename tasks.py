@@ -120,16 +120,16 @@ def minimal_task():
         
         browser_lib.click_button_when_visible("//button[@data-testid='search-show-more-button']")
 
+    file_system = FileSystem()
+    file_system.create_directory("output/article_images")
     for news in all_news:
         if news['image_url']:
             response = requests.get(news['image_url'])
             if response.status_code == 200:
-                file_system = FileSystem()
-                file_system.create_directory("news_images")
-                with open(f"news_images/{news['title']}.jpg", "wb") as f:
+                with open(f"output/article_images/{news['title']}.jpg", "wb") as f:
                     f.write(response.content)
 
     excel_lib = Files()
-    excel_lib.create_workbook("articles.xlsx")
+    excel_lib.create_workbook("output/articles.xlsx")
     excel_lib.create_worksheet(name="articles", content=all_news, header=True)
     excel_lib.save_workbook()
