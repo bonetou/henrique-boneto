@@ -17,7 +17,7 @@ class HomePageHandler:
         self._search_for(search_phrase)
 
     def _open_website(self):
-        self._browser_lib.open_browser(url=self._HOME_PAGE_URL)
+        self._browser_lib.open_available_browser(url=self._HOME_PAGE_URL)
         self._browser_lib.wait_until_page_contains_element(self._TERMS_LOCATOR)
         self._browser_lib.click_button(self._CONTINUE_BUTTON_LOCATOR)
 
