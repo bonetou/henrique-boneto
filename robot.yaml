@@ -3,13 +3,13 @@
 
 tasks:
   Extract nytimes news data:
-    shell: python -m robocorp.tasks run tasks.py
+    shell: python -m robocorp.tasks run extract_news.py
 
   Download pictures:
-    shell: python -m robocorp.tasks run tasks.py
+    shell: python -m robocorp.tasks run download_pictures.py
 
   Generate report:
-    shell: python -m robocorp.tasks run tasks.py
+    shell: python -m robocorp.tasks run generate_report.py
 
   Run unit tests:
     shell: python -m pytest tests -vv
@@ -30,3 +30,6 @@ PATH:
   - .
 PYTHONPATH:
   - .
+  - src
+  - tasks
+
