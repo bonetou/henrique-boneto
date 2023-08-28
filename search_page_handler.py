@@ -62,7 +62,6 @@ class SearchPageHandler:
         )
 
     def select_categories(self, categories: list[str]):
-        categories = [category.lower() for category in categories]
         self._browser.click_button(self._CATEGORIES_BUTTON_LOCATOR)
         for category in categories:
             try:
