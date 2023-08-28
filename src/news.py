@@ -56,5 +56,6 @@ class News:
             "description": self.description,
             "date": self.converted_date.isoformat(),
             "image_name": self.image_name,
+            "image_url": self.image_url,
             "contains_amount_of_money": self.contains_any_amount_of_money,
         }

@@ -11,14 +11,14 @@ class PictureDownloader:
     _pictures_zip_output = "output/pictures.zip"
 
     @classmethod
-    def download(cls, news: list[News]):
+    def download(cls, all_news: list[dict]):
         os.mkdir(cls._pictures_folder)
-        for n in news:
+        for news in all_news:
             try:
-                if n.image_url:
-                    cls._download_image(n.image_url, n.image_name)
+                if news["image_url"]:
+                    cls._download_image(news["image_url"], news["image_name"])
             except Exception as e:
-                log.exception(f"Download error: {e}, news: {n.to_dict()}")
+                log.exception(f"Download error: {e}, news: {news}")
         cls._zip_pictures()
         shutil.rmtree(cls._pictures_folder)
 
