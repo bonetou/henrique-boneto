@@ -38,10 +38,7 @@ def extract_nytimes_news():
 
         end_date = DateConverter.get_end_date_from_months(NUMBER_OF_MONTHS)
         news = search_page_handler.get_news_until(end_date)
-        workitems.outputs.create({
-            "searchPhrase": SEARCH_PHRASE,
-            "news": [n.to_dict() for n in news],
-        })
+        workitems.inputs.current.payload["news"] = [n.to_dict() for n in news]
         browser_lib.close_all_browsers()
 
     except InvalidInput as e:
@@ -53,11 +50,11 @@ def extract_nytimes_news():
 
 @task
 def download_news_pictures():
-    payload = workitems.outputs.last.payload
-    PictureDownloader.download(payload)
+    news = workitems.inputs.current.payload["news"]
+    PictureDownloader.download(news)
 
 
 @task
 def generate_excel_report():
-    payload = workitems.outputs.last.payload
+    payload = workitems.inputs.current.payload
     ExcelReport.generate(payload["news"], payload["searchPhrase"])
