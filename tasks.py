@@ -1,12 +1,12 @@
-from date_helper import DateConverter
-from download_pictures import PictureDownloader
-from exceptions import InvalidInput
-from homepage_handler import HomePageHandler
-from search_page_handler import SearchPageHandler
+from src.date_helper import DateConverter
+from src.download_pictures import PictureDownloader
+from src.exceptions import InvalidInput
+from src.homepage_handler import HomePageHandler
+from src.search_page_handler import SearchPageHandler
 from RPA.Browser.Selenium import Selenium
-from robocorp.workitems import inputs
 from robocorp.tasks import task
-from excel_report import ExcelReport
+from src.excel_report import ExcelReport
+from RPA.Robocorp.WorkItems import WorkItems
 
 browser_lib = Selenium()
 
@@ -21,10 +21,11 @@ def validate_inputs(**inputs):
 @task
 def extract_nytimes_news():
     try:
-        work_items = inputs.current.payload
-        SEARCH_PHRASE = work_items.get("searchPhrase")
-        CATEGORIES = work_items.get("categories", [])
-        NUMBER_OF_MONTHS = work_items.get("numberOfMonths", 0)
+        work_items = WorkItems()
+        payload = work_items.get_work_item_payload()
+        SEARCH_PHRASE = payload.get("searchPhrase")
+        CATEGORIES = payload.get("categories", [])
+        NUMBER_OF_MONTHS = payload.get("numberOfMonths", 0)
         validate_inputs(searchPhrase=SEARCH_PHRASE,
                         numberOfMonths=NUMBER_OF_MONTHS)
 

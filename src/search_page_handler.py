@@ -1,6 +1,6 @@
 from RPA.Browser.Selenium import Selenium
 from RPA.Browser.Selenium import ElementNotFound
-from news import News
+from src.news import News
 from selenium.webdriver.remote.webelement import WebElement
 from datetime import date
 

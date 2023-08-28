@@ -1,7 +1,7 @@
 from datetime import datetime
 import re
 import uuid
-from date_helper import DateConverter
+from src.date_helper import DateConverter
 
 
 class News:

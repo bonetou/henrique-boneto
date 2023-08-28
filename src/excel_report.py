@@ -1,4 +1,4 @@
-from news import News
+from src.news import News
 from RPA.Excel.Files import Files
 
 

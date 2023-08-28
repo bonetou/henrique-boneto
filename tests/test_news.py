@@ -1,4 +1,4 @@
-from news import News
+from src.news import News
 
 
 def test_image_name_not_empty_when_there_is_url():

@@ -1,5 +1,5 @@
 import requests
-from news import News
+from src.news import News
 from robocorp import log
 from RPA.Archive import Archive
 import os
