@@ -1,4 +1,4 @@
-from date_helper import get_end_date
+from date_helper import DateConverter
 from download_pictures import PictureDownloader
 from homepage_handler import HomePageHandler
 from search_page_handler import SearchPageHandler
@@ -18,7 +18,7 @@ def extract_nyt_news():
     SEARCH_PHRASE = work_items.get("searchPhrase", "turtle")
     CATEGORIES = work_items.get("categories", [])
     NUMBER_OF_MONTHS = work_items.get("numberOfMonths", 0)
-    end_date = get_end_date(NUMBER_OF_MONTHS)
+    end_date = DateConverter.get_end_date_with_months_input(NUMBER_OF_MONTHS)
 
     HomePageHandler(browser_lib).search(SEARCH_PHRASE)
 

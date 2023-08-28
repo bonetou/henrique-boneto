@@ -1,4 +1,3 @@
-from copy import deepcopy
 from RPA.Browser.Selenium import Selenium
 from RPA.Browser.Selenium import ElementNotFound
 from news import News
