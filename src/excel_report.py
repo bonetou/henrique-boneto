@@ -1,3 +1,4 @@
+import re
 from RPA.Excel.Files import Files
 
 
@@ -11,7 +12,7 @@ class ExcelReport:
                 "description": news["description"],
                 "date": news["date"],
                 "image_name": news["image_name"],
-                "contains_amount_of_money": news["contains_amount_of_money"],
+                "contains_amount_of_money": cls.has_any_amount_of_money(news),
                 "search_phrase_count": cls._count(news, search_phrase),
             }
             for news in all_news
@@ -27,3 +28,16 @@ class ExcelReport:
             news["title"].lower().count(search_phrase.lower())
             + news["description"].lower().count(search_phrase.lower())
         )
+
+    @classmethod
+    def has_any_amount_of_money(cls, news: dict) -> bool:
+        possible_money_patterns = [
+            r'\$\d+(\.\d+)?',       # $11.1 | $111,111.11
+            r'\d+\s*dollars',       # 11 dollars
+            r'\d+\s*USD'            # 11 USD
+        ]
+        return any((
+            re.search(pattern, news["title"])
+            or re.search(pattern, news["description"])
+            for pattern in possible_money_patterns
+        ))

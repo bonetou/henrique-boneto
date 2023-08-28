@@ -37,19 +37,6 @@ class News:
     def image_name(self) -> str:
         return f"{uuid.uuid4()}.jpeg" if self.image_url else ""
 
-    @property
-    def contains_any_amount_of_money(self) -> bool:
-        possible_money_patterns = [
-            r'\$\d+(\.\d+)?',      # $11.1 | $111,111.11
-            r'\d+\s*dollars',   # 11 dollars
-            r'\d+\s*USD'        # 11 USD
-        ]
-        return any((
-            re.search(pattern, self.title)
-            or re.search(pattern, self.description)
-            for pattern in possible_money_patterns
-        ))
-
     def to_dict(self) -> dict:
         return {
             "title": self.title,
@@ -57,5 +44,4 @@ class News:
             "date": self.converted_date.isoformat(),
             "image_name": self.image_name,
             "image_url": self.image_url,
-            "contains_amount_of_money": self.contains_any_amount_of_money,
         }
