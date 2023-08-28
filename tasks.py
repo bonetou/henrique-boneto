@@ -53,11 +53,11 @@ def extract_nytimes_news():
 
 @task
 def download_news_pictures():
-    payload = workitems.inputs.current.payload
+    payload = workitems.outputs.last.payload
     PictureDownloader.download(payload)
 
 
 @task
 def generate_excel_report():
-    payload = workitems.inputs.current.payload
+    payload = workitems.outputs.last.payload
     ExcelReport.generate(payload["news"], payload["searchPhrase"])
