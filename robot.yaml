@@ -3,13 +3,10 @@
 
 tasks:
   Extract nytimes news data:
-    shell: python -m robocorp.tasks run extract_news.py
+    shell: python -m robocorp.tasks run news_task.py
 
-  Download pictures:
-    shell: python -m robocorp.tasks run download_pictures.py
-
-  Generate report:
-    shell: python -m robocorp.tasks run generate_report.py
+  Download pictures and make report:
+    shell: python -m robocorp.tasks run pictures_and_report_task.py
 
   Run unit tests:
     shell: python -m pytest tests -vv
