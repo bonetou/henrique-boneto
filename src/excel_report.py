@@ -8,10 +8,7 @@ class ExcelReport:
         excel_lib = Files()
         content = [
             {
-                "title": news["title"],
-                "description": news["description"],
-                "date": news["date"],
-                "image_name": news["image_name"],
+                **news,
                 "contains_amount_of_money": cls.has_any_amount_of_money(news),
                 "search_phrase_count": cls._count(news, search_phrase),
             }
