@@ -9,12 +9,12 @@ class News:
         self,
         title: str,
         description: str,
-        date: str,
+        raw_date: str,
         image_url: str,
     ):
         self._title = title
         self._description = description
-        self._date = DateConverter.convert_news_raw_date(date)
+        self._date = DateConverter.convert_news_raw_date(raw_date)
         self._image_url = image_url
 
     @property
@@ -40,7 +40,7 @@ class News:
     @property
     def contains_any_amount_of_money(self) -> bool:
         possible_money_patterns = [
-            r'\$\d+\.\d+',      # $11.1 | $111,111.11
+            r'\$\d+(\.\d+)?',      # $11.1 | $111,111.11
             r'\d+\s*dollars',   # 11 dollars
             r'\d+\s*USD'        # 11 USD
         ]

@@ -49,7 +49,7 @@ class SearchPageHandler:
             News(
                 title=self._get_news_title(news),
                 description=self._get_news_description(news),
-                date=self._get_date(news),
+                raw_date=self._get_date(news),
                 image_url=self._get_image_url(news),
             )
             for news in news_searched[len(self._news):]
