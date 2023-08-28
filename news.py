@@ -15,7 +15,7 @@ class News:
     ):
         self._title = title
         self._description = description
-        self._date = self._convert_date(date)
+        self._date = self.convert_date(date)
         self._image_url = image_url
 
     @property
@@ -27,7 +27,7 @@ class News:
         return self._description
 
     @property
-    def date(self) -> date:
+    def news_date(self) -> date:
         return self._date
 
     @property
@@ -36,7 +36,7 @@ class News:
 
     @property
     def image_name(self) -> str:
-        return f"{uuid.uuid4()}.jpeg"
+        return f"{uuid.uuid4()}.jpeg" if self.image_url else ""
 
     def count_search_phrase(self, search_phrase: str) -> int:
         return (
@@ -61,31 +61,32 @@ class News:
         return {
             "title": self.title,
             "description": self.description,
-            "date": self.date.isoformat(),
+            "date": self.news_date.isoformat(),
             "image_name": self.image_name,
             "contains_amount_of_money": self.contains_any_amount_of_money,
         }
 
-    def _convert_date(self, article_date: str) -> date:
-        if 'hours ago' in article_date:
+    @classmethod
+    def convert_date(cls, news_date: str) -> date:
+        if 'hours ago' in news_date:
             current_date = datetime.now()
-            hours = int(article_date.split(' ')[0])
+            hours = int(news_date.split(' ')[0])
             date_converted = current_date - relativedelta(hours=hours)
 
-        elif 'minutes ago' in article_date:
+        elif 'minutes ago' in news_date:
             current_date = datetime.now()
-            minutes = int(article_date.split(' ')[0])
+            minutes = int(news_date.split(' ')[0])
             date_converted = current_date - relativedelta(minutes=minutes)
 
-        elif 'seconds ago' in article_date:
+        elif 'seconds ago' in news_date:
             current_date = datetime.now()
-            seconds = int(article_date.split(' ')[0])
+            seconds = int(news_date.split(' ')[0])
             date_converted = current_date - relativedelta(seconds=seconds)
 
-        elif len(article_date.split(',')) == 2:
-            date_converted = datetime.strptime(article_date, "%B %d, %Y")
+        elif len(news_date.split(',')) == 2:
+            date_converted = datetime.strptime(news_date, "%B %d, %Y")
 
         else:
-            date_converted = datetime.strptime(f'{article_date}, {datetime.now().year}', "%B %d, %Y")
+            date_converted = datetime.strptime(f'{news_date}, {datetime.now().year}', "%B %d, %Y")
 
         return date_converted
