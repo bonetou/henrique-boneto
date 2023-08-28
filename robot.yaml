@@ -5,6 +5,10 @@ tasks:
   Extract nytimes news data:
     shell: python -m robocorp.tasks run tasks.py
 
+  Run unit tests:
+    shell: python -m pytest tests -vv
+  
+  
 devTasks: {}
 
 environmentConfigs:
