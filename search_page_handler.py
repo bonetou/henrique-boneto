@@ -35,12 +35,6 @@ class SearchPageHandler:
             self.load_news()
         return self._filter_recent_news(self._news, end_date)
 
-    def _should_continue_to_get_more_news(self, end_date: date) -> bool:
-        return all((
-            self.exists_show_more_button,
-            not self._has_too_old_news(self._last_loaded_news, end_date),
-        ))
-
     def load_news(self) -> list[News]:
         news_searched = self._browser.find_elements(
             self._SEARCH_RESULTS_LOCATOR
@@ -55,6 +49,12 @@ class SearchPageHandler:
             for news in news_searched[len(self._news):]
         ]
         self._news.extend(self._last_loaded_news)
+
+    def _should_continue_to_get_more_news(self, end_date: date) -> bool:
+        return all((
+            self.exists_show_more_button,
+            not self._has_too_old_news(self._last_loaded_news, end_date),
+        ))
 
     def sort_by_newest(self):
         self._browser.select_from_list_by_value(
@@ -90,12 +90,16 @@ class SearchPageHandler:
     ) -> list[News]:
         return [
             n for n in news
-            if (n.news_date.month, n.news_date.year) >= (end_date.month, end_date.year)
+            if (
+                (n.converted_date.month, n.converted_date.year)
+                >= (end_date.month, end_date.year)
+            )
         ]
 
     def _has_too_old_news(self, news: list[News], end_date):
         return any(
-            (n.news_date.month, n.news_date.year) < (end_date.month, end_date.year)
+            (n.converted_date.month, n.converted_date.year)
+            < (end_date.month, end_date.year)
             for n in news
         )
 

@@ -26,7 +26,7 @@ class News:
         return self._description
 
     @property
-    def news_date(self) -> datetime:
+    def converted_date(self) -> datetime:
         return self._date
 
     @property
@@ -54,7 +54,7 @@ class News:
         return {
             "title": self.title,
             "description": self.description,
-            "date": self.news_date.isoformat(),
+            "date": self.converted_date.isoformat(),
             "image_name": self.image_name,
             "contains_amount_of_money": self.contains_any_amount_of_money,
         }
