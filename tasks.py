@@ -7,6 +7,7 @@ from RPA.Browser.Selenium import Selenium
 from robocorp.tasks import task
 from src.excel_report import ExcelReport
 from robocorp import workitems
+from RPA.Robocorp.WorkItems import WorkItems
 
 
 browser_lib = Selenium()
@@ -38,7 +39,14 @@ def extract_nytimes_news():
 
         end_date = DateConverter.get_end_date_from_months(NUMBER_OF_MONTHS)
         news = search_page_handler.get_news_until(end_date)
-        workitems.inputs.current.payload["news"] = [n.to_dict() for n in news]
+        work_items = WorkItems()
+        work_items.get_input_work_item()
+        out = work_items.create_output_work_item({
+            "news": [n.to_dict() for n in news],
+            "searchPhrase": SEARCH_PHRASE
+        })
+        out.save()
+        work_items.set_current_work_item(out)
         browser_lib.close_all_browsers()
 
     except InvalidInput as e:
@@ -50,11 +58,11 @@ def extract_nytimes_news():
 
 @task
 def download_news_pictures():
-    news = workitems.inputs.current.payload["news"]
-    PictureDownloader.download(news)
+    payload = WorkItems().get_current_work_item().payload
+    PictureDownloader.download(payload["news"])
 
 
 @task
 def generate_excel_report():
-    payload = workitems.inputs.current.payload
+    payload = WorkItems().get_current_work_item().payload
     ExcelReport.generate(payload["news"], payload["searchPhrase"])
