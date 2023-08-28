@@ -38,12 +38,6 @@ class News:
     def image_name(self) -> str:
         return f"{uuid.uuid4()}.jpeg" if self.image_url else ""
 
-    def count_search_phrase(self, search_phrase: str) -> int:
-        return (
-            self.description.lower().count(search_phrase.lower())
-            + self.title.lower().count(search_phrase.lower())
-        )
-
     @property
     def contains_any_amount_of_money(self) -> bool:
         money_patterns = [

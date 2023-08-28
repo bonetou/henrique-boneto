@@ -9,7 +9,7 @@ class ExcelReport:
         content = [
             {
                 **n.to_dict(),
-                "search_phrase_count": n.count_search_phrase(search_phrase),
+                "search_phrase_count": cls._count(n, search_phrase),
             }
             for n in news
         ]
@@ -17,3 +17,10 @@ class ExcelReport:
         excel_lib.create_worksheet(name="articles",
                                    content=content, header=True)
         excel_lib.save_workbook()
+
+    @classmethod
+    def _count(cls, news: News, search_phrase: str) -> int:
+        return (
+            news.title.lower().count(search_phrase.lower())
+            + news.description.lower().count(search_phrase.lower())
+        )

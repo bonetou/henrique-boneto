@@ -13,7 +13,7 @@ browser_lib = Selenium()
 
 
 @task
-def extract_nyt_articles():
+def extract_nyt_news():
     work_items = workitems.inputs.current.payload
     SEARCH_PHRASE = work_items.get("searchPhrase", "turtle")
     CATEGORIES = work_items.get("categories", [])
