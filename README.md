@@ -4,6 +4,11 @@
 This is a robot that searches for news on the New York Times website and saves the results in an Excel file.
 
 
-## Tasks
-- Extract nytimes news data
-- Run unit tests
+## Defined Tasks
+  - Extract nytimes news data:
+
+  - Download pictures:
+
+  - Generate report:
+
+  - Run unit tests:
