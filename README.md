@@ -7,8 +7,6 @@ This is a robot that searches for news on the New York Times website and saves t
 ## Defined Tasks
   - Extract nytimes news data:
 
-  - Download pictures:
-
-  - Generate report:
+  - Download pictures and generate report:
 
   - Run unit tests:
