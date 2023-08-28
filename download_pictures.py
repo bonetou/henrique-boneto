@@ -3,6 +3,7 @@ from news import News
 from robocorp import log
 from RPA.Archive import Archive
 import os
+import shutil
 
 
 class PictureDownloader:
@@ -19,6 +20,7 @@ class PictureDownloader:
             except Exception as e:
                 log.exception(f"Download error: {e}, news: {n.to_dict()}")
         cls._zip_pictures()
+        shutil.rmtree(cls._pictures_folder)
 
     @classmethod
     def _download_image(cls, image_url: str, image_name: str):
