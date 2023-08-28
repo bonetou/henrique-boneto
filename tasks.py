@@ -4,7 +4,7 @@ from exceptions import InvalidInput
 from homepage_handler import HomePageHandler
 from search_page_handler import SearchPageHandler
 from RPA.Browser.Selenium import Selenium
-from robocorp import workitems
+from robocorp.workitems import inputs
 from robocorp.tasks import task
 from excel_report import ExcelReport
 
@@ -21,7 +21,7 @@ def validate_inputs(**inputs):
 @task
 def extract_nytimes_news():
     try:
-        work_items = workitems.inputs.current.payload
+        work_items = inputs.current.payload
         SEARCH_PHRASE = work_items.get("searchPhrase")
         CATEGORIES = work_items.get("categories", [])
         NUMBER_OF_MONTHS = work_items.get("numberOfMonths", 0)
