@@ -37,8 +37,10 @@ class DateConverter:
     @classmethod
     def get_end_date_from_months(cls, number_of_months: int) -> datetime:
         delta_months = 0 if number_of_months == 0 else number_of_months - 1
-        return cls._current_date().date() - relativedelta(months=delta_months)
+        return cls._current_date() - relativedelta(months=delta_months)
 
     @classmethod
     def _convert_relative(cls, value: str, unit: str) -> datetime:
-        return cls._current_date() - relativedelta(**{unit: int(value)})
+        return (
+            cls._current_date() - relativedelta(**{unit: int(value)})
+        ).date()
